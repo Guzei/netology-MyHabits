@@ -7,20 +7,34 @@
 
 import UIKit
 
+let store = HabitsStore.shared
+
 let pagePadding = 20.0
+let colorButtomSize = 32.0
+
+enum Fonts {
+    static let title3         = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    static let headline       = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let body           = UIFont.systemFont(ofSize: 17, weight: .regular)
+    static let footnoteCaps   = UIFont.systemFont(ofSize: 13, weight: .bold)
+    static let footnoteStatus = UIFont.systemFont(ofSize: 13, weight: .semibold)
+    static let footnote       = UIFont.systemFont(ofSize: 13, weight: .regular)
+    static let caption        = UIFont.systemFont(ofSize: 12, weight: .regular)
+}
+
+enum AppColors {
+    static let lightGray = UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+    static let orange    = UIColor(red:       1, green: 159/255, blue:  79/255, alpha: 1)
+    static let purple    = UIColor(red: 161/255, green:  22/255, blue: 204/255, alpha: 1)
+    static let green     = UIColor(red:  29/255, green: 179/255, blue:  34/255, alpha: 1)
+    static let blue      = UIColor(red:  41/255, green: 109/255, blue:       1, alpha: 1)
+    static let blue2     = UIColor(red:  98/255, green:  54/255, blue:       1, alpha: 1)
+}
 
 enum BackgroundColors {
+    static let mainView: UIColor = AppColors.lightGray // .systemYellow //.systemGray5
     static let tabBar: UIColor = .systemGray5
-    static let mainView: UIColor = .systemGray5 // systemYellow //
     static let table: UIColor = .white // .systemCyan
-}
-
-enum TextColors {
-    static let purple = UIColor(red: 161/255, green: 22/255, blue: 204/255, alpha: 1)
-}
-
-enum FontSize {
-    static let infoLabel = 20.0
 }
 
 let infoLabel = "Привычка за 21 день"

@@ -31,8 +31,11 @@ public final class Habit: Codable {
     }
 
     /// Описание времени выполнения привычки.
+//    public var dateString: String {
+//        "Каждый день в " + dateFormatter.string(from: date)
+//    }
     public var dateString: String {
-        "Каждый день в " + dateFormatter.string(from: date)
+        dateFormatter.string(from: date)  // цвет текста и цифр по шаблону разный
     }
 
     /// Показывает, была ли сегодня добавлена привычка.
@@ -50,7 +53,7 @@ public final class Habit: Codable {
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.locale = Locale(identifier: "en_US") // тут было "ru_RU", но картинках шаблона по-другому
         formatter.timeStyle = .short
         return formatter
     }()

@@ -11,14 +11,13 @@ final class TabBarController: UITabBarController {
 
     let vcHabits = HabitsViewController()
     let vcInfo = InfoViewController()
+    let vcNew = HabitViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tabBar.backgroundColor = BackgroundColors.tabBar
-        tabBar.tintColor = TextColors.purple
-//        tabBar.unselectedItemTintColor = .label
-
+        tabBar.tintColor = AppColors.purple
 
         let ncHabits: UINavigationController = {
             $0.setViewControllers([vcHabits], animated: true)
@@ -32,7 +31,13 @@ final class TabBarController: UITabBarController {
             return $0
         }(UINavigationController())
 
-        viewControllers = [ncHabits, ncInfo]
-        selectedIndex = 1
+        let ncNew: UINavigationController = {
+            $0.setViewControllers([vcNew], animated: true)
+            $0.tabBarItem = UITabBarItem(title: "New", image: UIImage(systemName: "plus.circle.fill"), tag: 0)
+            return $0
+        }(UINavigationController())
+
+        viewControllers = [ncHabits, ncInfo, ncNew]
+        selectedIndex = 0
     }
 }

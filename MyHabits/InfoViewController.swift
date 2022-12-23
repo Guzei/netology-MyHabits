@@ -7,34 +7,29 @@
 
 import UIKit
 
-class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    private lazy var table: UITableView = {
-        $0.backgroundColor = BackgroundColors.table
-        $0.dataSource = self
-        $0.delegate = self
-        $0.separatorStyle = .none
-        $0.tableHeaderView = label
-        $0.sectionHeaderHeight = 0                              // без этого heightForHeaderInSection не работает
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UITableView(frame: .zero, style: .grouped))
+class InfoViewController: UIViewController, UITableViewDataSource {
 
     private lazy var label: UILabel = {
-        $0.font = .systemFont(ofSize: FontSize.infoLabel, weight: .semibold)
+        $0.font = Fonts.headline
         $0.text = infoLabel
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
+    private lazy var table: UITableView = {
+        $0.backgroundColor = BackgroundColors.table
+        $0.tableHeaderView = label
+        $0.separatorStyle = .none
+        $0.dataSource = self
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UITableView(frame: .zero, style: .grouped))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = BackgroundColors.mainView
-
-        title = "Информация"
-
-        view.addSubview(label)
         view.addSubview(table)
+        title = "Информация"
 
         NSLayoutConstraint.activate([
 
@@ -43,9 +38,8 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
             table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            label.topAnchor.constraint(equalTo: table.topAnchor, constant: pagePadding),
-            label.leadingAnchor.constraint(equalTo: table.leadingAnchor, constant: pagePadding),
-            label.trailingAnchor.constraint(equalTo: table.trailingAnchor),
+            label.topAnchor.constraint(equalTo: table.topAnchor, constant: 8),
+            label.leadingAnchor.constraint(equalTo: table.leadingAnchor, constant: 18),
 
         ])
     }
@@ -62,9 +56,5 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.contentConfiguration = content
 
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        pagePadding * 2 + FontSize.infoLabel
     }
 }
