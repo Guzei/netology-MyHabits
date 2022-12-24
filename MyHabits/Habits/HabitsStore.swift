@@ -31,10 +31,10 @@ public final class Habit: Codable {
     }
 
     /// Описание времени выполнения привычки.
-//    public var dateString: String {
-//        "Каждый день в " + dateFormatter.string(from: date)
-//    }
     public var dateString: String {
+        "Каждый день в " + dateFormatter.string(from: date)
+    }
+    public var timeString: String {
         dateFormatter.string(from: date)  // цвет текста и цифр по шаблону разный
     }
 

@@ -21,7 +21,8 @@ class HabitsViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = BackgroundColors.collection
-        collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier.0)
+        collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier.1)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,18 +81,19 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         print(#file, #function)
-        return 1
+        return 2
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(#file, #function)
-        return 1
+        return section == 0 ? 1 : store.habits.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         print(#file, #function)
         // habitsProgress.bounds.width vs. UIScreen.main.bounds.width ?
-        return CGSize(width: (habitsProgress.bounds.width - pagePadding * 2), height: pagePadding * 4 + 8)
+        return CGSize(width: habitsProgress.bounds.width - pagePadding * 2,
+                      height: indexPath.section == 0 ? pagePadding * 4 + 8 : 130)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -101,9 +103,15 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print(#file, #function)
-        let cell = habitsProgress.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ProgressCollectionViewCell
-        cell.setData()
-        return cell
+        if indexPath.section == 0 {
+            let cell = habitsProgress.dequeueReusableCell(withReuseIdentifier: cellIdentifier.0, for: indexPath) as! ProgressCollectionViewCell
+            cell.setData()
+            return cell
+        } else {
+            let cell = habitsProgress.dequeueReusableCell(withReuseIdentifier: cellIdentifier.1, for: indexPath) as! HabitCollectionViewCell
+            cell.setData(indexPath.row)
+            return cell
+        }
     }
 }
 

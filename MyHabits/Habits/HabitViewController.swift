@@ -76,7 +76,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         $0.textColor = AppColors.purple
         $0.font = Fonts.body
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = newHabit.dateString
+        $0.text = newHabit.timeString
         return $0
     }(UILabel())
 
@@ -91,7 +91,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     @objc func setDate(_ datePiker: UIDatePicker){
         print(#function)
         newHabit.date = datePiker.date
-        time.text = newHabit.dateString
+        time.text = newHabit.timeString
     }
 
     override func viewDidLoad() {

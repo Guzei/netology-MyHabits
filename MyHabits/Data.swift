@@ -9,10 +9,10 @@ import UIKit
 
 let store = HabitsStore.shared
 
-let cellIdentifier = "i1"
-
 let pagePadding = 16.0
 let colorButtomSize = 32.0
+
+let cellIdentifier = ("i0", "i1")
 
 enum Fonts {
     static let title3         = UIFont.systemFont(ofSize: 20, weight: .semibold)
