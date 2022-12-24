@@ -11,7 +11,6 @@ final class TabBarController: UITabBarController {
 
     let vcHabits = HabitsViewController()
     let vcInfo = InfoViewController()
-    let vcNew = HabitViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +30,7 @@ final class TabBarController: UITabBarController {
             return $0
         }(UINavigationController())
 
-        let ncNew: UINavigationController = {
-            $0.setViewControllers([vcNew], animated: true)
-            $0.tabBarItem = UITabBarItem(title: "New", image: UIImage(systemName: "plus.circle.fill"), tag: 0)
-            return $0
-        }(UINavigationController())
-
-        viewControllers = [ncHabits, ncInfo, ncNew]
+        viewControllers = [ncHabits, ncInfo]
         selectedIndex = 0
     }
 }

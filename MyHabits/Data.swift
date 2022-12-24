@@ -9,7 +9,9 @@ import UIKit
 
 let store = HabitsStore.shared
 
-let pagePadding = 20.0
+let cellIdentifier = "i1"
+
+let pagePadding = 16.0
 let colorButtomSize = 32.0
 
 enum Fonts {
@@ -33,8 +35,10 @@ enum AppColors {
 
 enum BackgroundColors {
     static let mainView: UIColor = AppColors.lightGray // .systemYellow //.systemGray5
-    static let tabBar: UIColor = .systemGray5
-    static let table: UIColor = .white // .systemCyan
+    static let collection: UIColor = .systemGray5
+    static let tabBar: UIColor = .systemGray3
+    static let table: UIColor = .systemCyan
+    static let cell: UIColor = .white // .systemRed
 }
 
 let infoLabel = "Привычка за 21 день"
