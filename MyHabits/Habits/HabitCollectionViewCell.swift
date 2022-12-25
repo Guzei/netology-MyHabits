@@ -9,6 +9,8 @@ import UIKit
 
 class HabitCollectionViewCell: UICollectionViewCell {
 
+    var habit = Habit(name: "", date: Date(), color: .systemRed)
+
     private lazy var habitName: UILabel = {
         $0.backgroundColor = .yellow
         $0.textColor = AppColors.blue
@@ -35,15 +37,9 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }(UILabel())
 
     private lazy var checkButton: UIButton = {
-        $0.tintColor = .systemYellow
-        $0.setImage(UIImage(systemName: "circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32)), for: .normal)
-        $0.addTarget(self, action: #selector(checkHabit), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
-    @objc func checkHabit(){
-        checkButton.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32)), for: .normal)
-    }
 
     override init(frame: CGRect) {
         print(#file, #function)
@@ -87,9 +83,22 @@ class HabitCollectionViewCell: UICollectionViewCell {
 
     func setData(_ index: Int) {
         print(#file, #function)
-        habitName.text = store.habits[index].name
-        dateString.text = store.habits[index].dateString
-        counter.text = String(store.habits[index].trackDates.count)
-        checkButton.tintColor = store.habits[index].color
+        habit = store.habits[index]
+        habitName.text = habit.name
+        dateString.text = habit.dateString
+        counter.text = String(habit.trackDates.count)
+        checkButton.tintColor = habit.color
+        checkButton.setImage(checkImg[habit.isAlreadyTakenToday], for: .normal)
+        if habit.isAlreadyTakenToday == false {
+            checkButton.addTarget(self, action: #selector(checkHabit), for: .touchUpInside)
+        }
+    }
+
+    @objc func checkHabit() {
+        print(#file, #function)
+        store.track(habit)
+        checkButton.setImage(checkImg[true], for: .normal)
+        checkButton.removeTarget(self, action: #selector(checkHabit), for: .touchUpInside)
+        (superview as? UICollectionView)?.reloadItems(at: [IndexPath(row: 0, section: 0)])
     }
 }

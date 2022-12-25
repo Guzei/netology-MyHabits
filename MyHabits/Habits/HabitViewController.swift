@@ -160,14 +160,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     @objc func save() {
-        print(#function)
-        print("name:", newHabit.name)
+        print(#file, #function)
         if newHabit.name != "" {
             store.habits.append(newHabit)
         }
-        print(store.habits.count)
-        print(store.habits.last?.name ?? "-")
-
 
         dismiss(animated: true)
     }

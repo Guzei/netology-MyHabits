@@ -10,7 +10,6 @@ import UIKit
 class HabitsViewController: UIViewController {
 
     private lazy var title3: UILabel = {
-//        $0.backgroundColor = .systemYellow
         $0.font = Fonts.title3
         $0.text = "Сегодня"
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +36,7 @@ class HabitsViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressAdd))
 
-        // store.habits = []
+//         store.habits = []
         //        print(store.habits.count)
         //        print("first:", store.habits.first?.dateString ?? "no date for first")
         //        print("last:", store.habits.last?.dateString ?? "no date for last")

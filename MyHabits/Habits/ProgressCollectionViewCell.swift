@@ -10,7 +10,6 @@ import UIKit
 final class ProgressCollectionViewCell: UICollectionViewCell {
 
     private lazy var lablel: UILabel = {
-//        $0.backgroundColor = .yellow
         $0.textColor = .systemGray
         $0.font = Fonts.footnote
         $0.text = "Всё получится!"
@@ -19,7 +18,6 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     }(UILabel())
 
     private lazy var procent: UILabel = {
-//        $0.backgroundColor = .systemGray6
         $0.textColor = .systemGray
         $0.font = Fonts.footnote
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +28,6 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
         $0.backgroundColor = .systemGray
         $0.progressTintColor = AppColors.purple
         $0.layer.cornerRadius = 4
-//        $0.layer.masksToBounds = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIProgressView())
@@ -77,6 +74,5 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
         print(#file, #function)
         procent.text = String(format: "%.0f%%", store.todayProgress * 100)
         progressBar.progress = store.todayProgress
-//        progressBar.progress = 0.5
     }
 }

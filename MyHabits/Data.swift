@@ -14,6 +14,11 @@ let colorButtomSize = 32.0
 
 let cellIdentifier = ("i0", "i1")
 
+let checkImg: Dictionary <Bool, UIImage> = [
+    false: UIImage(systemName:           "circle"     , withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))!,
+    true : UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))!
+]
+
 enum Fonts {
     static let title3         = UIFont.systemFont(ofSize: 20, weight: .semibold)
     static let headline       = UIFont.systemFont(ofSize: 17, weight: .semibold)
