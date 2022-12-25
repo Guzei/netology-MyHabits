@@ -33,8 +33,8 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     }(UIProgressView())
 
     override init(frame: CGRect) {
-        print(#file, #function)
-        print(frame)
+//        print(#file, #function)
+//        print(frame)
         super .init(frame: .zero)
 
         contentView.backgroundColor = BackgroundColors.cell
@@ -44,7 +44,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
 
     func addSubviews(){
-        print(#file, #function)
+//        print(#file, #function)
         contentView.layer.cornerRadius = 8
         contentView.addSubview(lablel)
         contentView.addSubview(procent)
@@ -52,7 +52,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     }
 
     func setConstraints() {
-        print(#file, #function)
+//        print(#file, #function)
         NSLayoutConstraint.activate([
 
             lablel.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),

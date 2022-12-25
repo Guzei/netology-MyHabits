@@ -9,10 +9,9 @@ import UIKit
 
 class HabitCollectionViewCell: UICollectionViewCell {
 
-    var habit = Habit(name: "", date: Date(), color: .systemRed)
+    var cellIndex = 0
 
     private lazy var habitName: UILabel = {
-        $0.backgroundColor = .yellow
         $0.textColor = AppColors.blue
         $0.font = Fonts.headline
         $0.numberOfLines = 2
@@ -21,7 +20,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }(UILabel())
 
     private lazy var dateString: UILabel = {
-        $0.backgroundColor = .yellow
         $0.textColor = .systemGray2
         $0.font = Fonts.caption
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +27,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }(UILabel())
 
     private lazy var counter: UILabel = {
-        $0.backgroundColor = .yellow
         $0.textColor = .systemGray2
         $0.font = Fonts.footnoteCaps
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -42,10 +39,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }(UIButton())
 
     override init(frame: CGRect) {
-        print(#file, #function)
-        print(frame)
         super .init(frame: .zero)
-
         contentView.backgroundColor = BackgroundColors.cell
         addSubviews()
         setConstraints()
@@ -53,7 +47,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
 
     func addSubviews(){
-        print(#file, #function)
         contentView.layer.cornerRadius = 8
         contentView.addSubview(checkButton)
         contentView.addSubview(habitName)
@@ -62,7 +55,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }
 
     func setConstraints() {
-        print(#file, #function)
         NSLayoutConstraint.activate([
 
             habitName.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),
@@ -82,8 +74,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }
 
     func setData(_ index: Int) {
-        print(#file, #function)
-        habit = store.habits[index]
+        cellIndex = index
+        let habit = store.habits[index]
         habitName.text = habit.name
         dateString.text = habit.dateString
         counter.text = String(habit.trackDates.count)
@@ -96,9 +88,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
 
     @objc func checkHabit() {
         print(#file, #function)
-        store.track(habit)
-        checkButton.setImage(checkImg[true], for: .normal)
-        checkButton.removeTarget(self, action: #selector(checkHabit), for: .touchUpInside)
-        (superview as? UICollectionView)?.reloadItems(at: [IndexPath(row: 0, section: 0)])
+        store.track(store.habits[cellIndex])
+        (superview as? UICollectionView)?.reloadItems(at: [IndexPath(row:         0, section: 0),
+                                                           IndexPath(row: cellIndex, section: 1) ])
     }
 }

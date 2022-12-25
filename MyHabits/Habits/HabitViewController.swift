@@ -25,10 +25,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         return $0
     }(UITextField())
 
-    @objc private func setName(_ textField: UITextField) {
-        newHabit.name = textField.text ?? ""
-    }
-
     private lazy var colorLabel: UILabel = {
         $0.text = "ЦВЕТ"
         $0.font = Fonts.footnoteStatus
@@ -42,21 +38,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
-
-    @objc func setColor() {
-        print(#function)
-        let picker = UIColorPickerViewController()
-        picker.delegate = self
-        picker.modalPresentationStyle = .fullScreen
-        picker.modalTransitionStyle = .crossDissolve
-        self.present(picker, animated: true, completion: nil)
-    }
-
-    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-        print(#function)
-        newHabit.color = color
-        colorButton.backgroundColor = newHabit.color
-    }
 
     private lazy var dateLabel: UILabel = {
         $0.text = "ВРЕМЯ"
@@ -88,14 +69,8 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         return $0
     }(UIDatePicker())
 
-    @objc func setDate(_ datePiker: UIDatePicker){
-        print(#function)
-        newHabit.date = datePiker.date
-        time.text = newHabit.timeString
-    }
-
     override func viewDidLoad() {
-        print(#function, #file)
+//        print(#function, #file)
         super.viewDidLoad()
         view.backgroundColor = AppColors.lightGray
         title = "Создать"
@@ -155,7 +130,33 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         ])
     }
 
+    @objc private func setName(_ textField: UITextField) { // MARK: DOTO - добавить крестик
+        newHabit.name = textField.text ?? ""
+    }
+
+    @objc func setColor() {
+        print(#file, #function)
+        let picker = UIColorPickerViewController()
+        picker.delegate = self
+        picker.modalPresentationStyle = .fullScreen
+        picker.modalTransitionStyle = .crossDissolve
+        self.present(picker, animated: true, completion: nil)
+    }
+
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        print(#file, #function)
+        newHabit.color = color
+        colorButton.backgroundColor = newHabit.color
+    }
+
+    @objc func setDate(_ datePiker: UIDatePicker){
+        print(#file, #function)
+        newHabit.date = datePiker.date
+        time.text = newHabit.timeString
+    }
+
     @objc private func cancel() {
+        print(#file, #function)
         dismiss(animated: true)
     }
 

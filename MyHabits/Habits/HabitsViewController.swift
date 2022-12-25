@@ -9,6 +9,8 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
+    var countHabits = 0
+
     private lazy var title3: UILabel = {
         $0.font = Fonts.title3
         $0.text = "Сегодня"
@@ -16,7 +18,7 @@ class HabitsViewController: UIViewController {
         return $0
     }(UILabel())
 
-    private lazy var habitsProgress: UICollectionView = {
+    private lazy var habitsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = BackgroundColors.collection
@@ -31,10 +33,12 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         print(#file, #function)
         super.viewDidLoad()
+        habitsCollectionView.reloadData()
         view.backgroundColor = BackgroundColors.mainView
         navigationController?.navigationBar.tintColor = AppColors.purple
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pressAdd))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit))
+
 
 //         store.habits = []
         //        print(store.habits.count)
@@ -44,31 +48,40 @@ class HabitsViewController: UIViewController {
         addSubviews()
         setConstraints()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        print(#file, #function)
+        print(countHabits, store.habits.count)
+        if countHabits != store.habits.count, countHabits > 0 {
+            print("reload")
+            habitsCollectionView.reloadData()
+        }
+        countHabits = store.habits.count
+    }
 
     func addSubviews() {
-        print(#file, #function)
+//        print(#file, #function)
         view.addSubview(title3)
-        view.addSubview(habitsProgress)
+        view.addSubview(habitsCollectionView)
     }
 
     func setConstraints() {
-        print(#file, #function)
+//        print(#file, #function)
         NSLayoutConstraint.activate([
 
             title3.heightAnchor.constraint(equalToConstant: Fonts.title3.pointSize * 2),
             title3.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             title3.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: pagePadding),
 
-            habitsProgress.topAnchor.constraint(equalTo: title3.bottomAnchor),
-            habitsProgress.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            habitsProgress.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            habitsProgress.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            habitsCollectionView.topAnchor.constraint(equalTo: title3.bottomAnchor),
+            habitsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            habitsCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            habitsCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
         ])
     }
 
-    @objc func pressAdd() {
-        print(#file, #function)
+    @objc func addHabit() {
+//        print(#file, #function)
         let nc = UINavigationController(rootViewController: HabitViewController())
         nc.modalPresentationStyle = .fullScreen
         nc.modalTransitionStyle = .flipHorizontal
@@ -79,35 +92,35 @@ class HabitsViewController: UIViewController {
 extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print(#file, #function)
+//        print(#file, #function)
         return 2
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(#file, #function)
+//        print(#file, #function)
         return section == 0 ? 1 : store.habits.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print(#file, #function)
+//        print(#file, #function)
         // habitsProgress.bounds.width vs. UIScreen.main.bounds.width ?
-        return CGSize(width: habitsProgress.bounds.width - pagePadding * 2,
+        return CGSize(width: habitsCollectionView.bounds.width - pagePadding * 2,
                       height: indexPath.section == 0 ? pagePadding * 4 + 8 : 130)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        print(#file, #function)
+//        print(#file, #function)
         return UIEdgeInsets(top: pagePadding, left: pagePadding, bottom: pagePadding, right: pagePadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(#file, #function)
+//        print(#file, #function)
         if indexPath.section == 0 {
-            let cell = habitsProgress.dequeueReusableCell(withReuseIdentifier: cellIdentifier.0, for: indexPath) as! ProgressCollectionViewCell
+            let cell = habitsCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier.0, for: indexPath) as! ProgressCollectionViewCell
             cell.setData()
             return cell
         } else {
-            let cell = habitsProgress.dequeueReusableCell(withReuseIdentifier: cellIdentifier.1, for: indexPath) as! HabitCollectionViewCell
+            let cell = habitsCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier.1, for: indexPath) as! HabitCollectionViewCell
             cell.setData(indexPath.row)
             return cell
         }
