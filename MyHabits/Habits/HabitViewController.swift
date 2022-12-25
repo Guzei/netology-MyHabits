@@ -21,6 +21,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     private lazy var habitNameText: UITextField = {
         $0.addTarget(self, action: #selector(setName), for: .editingChanged)
         $0.placeholder = "Бегать по утрам, спать 8 часов и т.п."
+        $0.clearButtonMode = .whileEditing
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITextField())
@@ -33,8 +34,9 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }(UILabel())
 
     private lazy var colorButton: UIButton = {
+        $0.setImage(UIImage(systemName: "circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: colorDiskSize)), for: .normal)
+        $0.tintColor = newHabit.color
         $0.addTarget(self, action: #selector(setColor), for: .touchUpInside)
-        $0.layer.cornerRadius = colorButtomSize / 2
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
@@ -72,15 +74,15 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     override func viewDidLoad() {
 //        print(#function, #file)
         super.viewDidLoad()
-        view.backgroundColor = AppColors.lightGray
+        view.backgroundColor = .systemGray6
         title = "Создать"
+
         navigationController?.navigationBar.tintColor = AppColors.purple
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(save))
 
         habitNameText.text = newHabit.name
-        colorButton.backgroundColor = newHabit.color
 
         addSubviews()
         setConstraints()
@@ -110,8 +112,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             colorLabel.topAnchor.constraint(equalTo: habitNameText.bottomAnchor, constant: 32),
             colorLabel.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
 
-            colorButton.heightAnchor.constraint(equalToConstant: colorButtomSize),
-            colorButton.widthAnchor.constraint(equalToConstant: colorButtomSize),
             colorButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 16),
             colorButton.leadingAnchor.constraint(equalTo: habitNameLabel.leadingAnchor),
 
@@ -130,7 +130,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         ])
     }
 
-    @objc private func setName(_ textField: UITextField) { // MARK: DOTO - добавить крестик
+    @objc private func setName(_ textField: UITextField) {
         newHabit.name = textField.text ?? ""
     }
 
@@ -146,7 +146,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         print(#file, #function)
         newHabit.color = color
-        colorButton.backgroundColor = newHabit.color
+        colorButton.tintColor = newHabit.color
     }
 
     @objc func setDate(_ datePiker: UIDatePicker){

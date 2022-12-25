@@ -21,7 +21,7 @@ class HabitsViewController: UIViewController {
     private lazy var habitsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = BackgroundColors.collection
+        collectionView.backgroundColor = .systemGray5
         collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier.0)
         collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier.1)
         collectionView.dataSource = self
@@ -34,7 +34,7 @@ class HabitsViewController: UIViewController {
         print(#file, #function)
         super.viewDidLoad()
         habitsCollectionView.reloadData()
-        view.backgroundColor = BackgroundColors.mainView
+        view.backgroundColor = AppColors.lightGray
         navigationController?.navigationBar.tintColor = AppColors.purple
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit))
@@ -110,7 +110,7 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 //        print(#file, #function)
-        return UIEdgeInsets(top: pagePadding, left: pagePadding, bottom: pagePadding, right: pagePadding)
+        return UIEdgeInsets(top: pagePadding, left: pagePadding, bottom: 0, right: pagePadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -123,6 +123,14 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
             let cell = habitsCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier.1, for: indexPath) as! HabitCollectionViewCell
             cell.setData(indexPath.row)
             return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section > 0 {
+            let viewController = HabitDetailsViewController()
+            viewController.cellIndex = indexPath.row
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }

@@ -25,7 +25,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     }(UILabel())
 
     private lazy var progressBar: UIProgressView = {
-        $0.backgroundColor = .systemGray
+        $0.backgroundColor = AppColors.lightGray
         $0.progressTintColor = AppColors.purple
         $0.layer.cornerRadius = 4
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
 //        print(frame)
         super .init(frame: .zero)
 
-        contentView.backgroundColor = BackgroundColors.cell
+        contentView.backgroundColor = .white
         addSubviews()
         setConstraints()
     }

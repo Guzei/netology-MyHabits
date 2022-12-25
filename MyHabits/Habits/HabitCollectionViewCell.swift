@@ -40,7 +40,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super .init(frame: .zero)
-        contentView.backgroundColor = BackgroundColors.cell
+        contentView.backgroundColor = .white
         addSubviews()
         setConstraints()
     }
@@ -59,7 +59,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
 
             habitName.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),
             habitName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: pagePadding),
-            habitName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding * 2 - 32),
+            habitName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding * 2 - colorDiskSize),
 
             dateString.topAnchor.constraint(equalTo: habitName.bottomAnchor, constant: 8),
             dateString.leadingAnchor.constraint(equalTo: habitName.leadingAnchor),

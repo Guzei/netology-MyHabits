@@ -10,23 +10,23 @@ import UIKit
 let store = HabitsStore.shared
 
 let pagePadding = 16.0
-let colorButtomSize = 32.0
+let colorDiskSize = 32.0
 
 let cellIdentifier = ("i0", "i1")
 
 let checkImg: Dictionary <Bool, UIImage> = [
-    false: UIImage(systemName:           "circle"     , withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))!,
-    true : UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))!
+    false: UIImage(systemName:           "circle"     , withConfiguration: UIImage.SymbolConfiguration(pointSize: colorDiskSize))!,
+    true : UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: colorDiskSize))!
 ]
 
 enum Fonts {
     static let title3         = UIFont.systemFont(ofSize: 20, weight: .semibold)
     static let headline       = UIFont.systemFont(ofSize: 17, weight: .semibold)
-    static let body           = UIFont.systemFont(ofSize: 17, weight: .regular)
-    static let footnoteCaps   = UIFont.systemFont(ofSize: 13, weight: .bold)
+    static let body           = UIFont.systemFont(ofSize: 17, weight:  .regular)
+    static let footnoteCaps   = UIFont.systemFont(ofSize: 13, weight:     .bold)
     static let footnoteStatus = UIFont.systemFont(ofSize: 13, weight: .semibold)
-    static let footnote       = UIFont.systemFont(ofSize: 13, weight: .regular)
-    static let caption        = UIFont.systemFont(ofSize: 12, weight: .regular)
+    static let footnote       = UIFont.systemFont(ofSize: 13, weight:  .regular)
+    static let caption        = UIFont.systemFont(ofSize: 12, weight:  .regular)
 }
 
 enum AppColors {
@@ -38,13 +38,13 @@ enum AppColors {
     static let blue2     = UIColor(red:  98/255, green:  54/255, blue:       1, alpha: 1)
 }
 
-enum BackgroundColors {
-    static let mainView: UIColor = AppColors.lightGray // .systemYellow //.systemGray5
-    static let collection: UIColor = .systemGray5
-    static let tabBar: UIColor = .systemGray3
-    static let table: UIColor = .systemCyan
-    static let cell: UIColor = .white // .systemRed
-}
+//enum BackgroundColors {
+//    static let mainView: UIColor = AppColors.lightGray // .systemYellow //.systemGray5
+//    static let collection: UIColor = .systemGray5
+//    static let tabBar: UIColor = .systemGray5
+//    static let table: UIColor = .white //  .systemCyan
+//    static let cell: UIColor = .white // .systemRed
+//}
 
 let infoLabel = "Привычка за 21 день"
 

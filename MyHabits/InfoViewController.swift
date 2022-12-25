@@ -17,7 +17,7 @@ class InfoViewController: UIViewController, UITableViewDataSource {
     }(UILabel())
 
     private lazy var table: UITableView = {
-        $0.backgroundColor = BackgroundColors.table
+        $0.backgroundColor = AppColors.lightGray
         $0.tableHeaderView = label
         $0.separatorStyle = .none
         $0.dataSource = self
@@ -27,7 +27,7 @@ class InfoViewController: UIViewController, UITableViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = BackgroundColors.mainView
+        view.backgroundColor = AppColors.lightGray
         view.addSubview(table)
         title = "Информация"
 
@@ -53,6 +53,8 @@ class InfoViewController: UIViewController, UITableViewDataSource {
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         content.text = infoText
+        cell.isSelected = false
+        cell.selectionStyle = .none
         cell.contentConfiguration = content
 
         return cell

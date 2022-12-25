@@ -15,7 +15,7 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBar.backgroundColor = BackgroundColors.tabBar
+        tabBar.backgroundColor = .systemGray6
         tabBar.tintColor = AppColors.purple
 
         let ncHabits: UINavigationController = {
