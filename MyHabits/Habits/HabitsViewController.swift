@@ -31,7 +31,7 @@ class HabitsViewController: UIViewController {
     }()
 
     override func viewDidLoad() {
-        print(#file, #function)
+//        print(#file, #function)
         super.viewDidLoad()
         habitsCollectionView.reloadData()
         view.backgroundColor = AppColors.lightGray
@@ -39,20 +39,15 @@ class HabitsViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit))
 
-
-//         store.habits = []
-        //        print(store.habits.count)
-        //        print("first:", store.habits.first?.dateString ?? "no date for first")
-        //        print("last:", store.habits.last?.dateString ?? "no date for last")
-
         addSubviews()
         setConstraints()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        print(#file, #function)
-        print(countHabits, store.habits.count)
+//        print(#file, #function)
+//        print(countHabits, store.habits.count)
         if countHabits != store.habits.count, countHabits > 0 {
-            print("reload")
+            print("reload collection")
             habitsCollectionView.reloadData()
         }
         countHabits = store.habits.count
@@ -129,7 +124,7 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
             let viewController = HabitDetailsViewController()
-            viewController.cellIndex = indexPath.row
+            viewController.habitIndex = indexPath.row
             navigationController?.pushViewController(viewController, animated: true)
         }
     }

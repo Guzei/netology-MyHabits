@@ -73,12 +73,12 @@
 				4E73804029507A9900070BE4 /* AppDelegate.swift */,
 				4E73804229507A9900070BE4 /* SceneDelegate.swift */,
 				4E8E89CA295244C100E43705 /* TabBarController.swift */,
+				4E73805429507CF300070BE4 /* Data.swift */,
 				4E8E89CD2952476E00E43705 /* InfoViewController.swift */,
 				4E8E89CC2952475300E43705 /* Habits */,
 				4E73804929507A9A00070BE4 /* Assets.xcassets */,
 				4E73804B29507A9A00070BE4 /* LaunchScreen.storyboard */,
 				4E73804E29507A9A00070BE4 /* Info.plist */,
-				4E73805429507CF300070BE4 /* Data.swift */,
 			);
 			path = MyHabits;
 			sourceTree = "<group>";

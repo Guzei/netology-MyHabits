@@ -71,7 +71,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     }
 
     func setData() {
-        print(#file, #function)
+//        print(#file, #function)
         procent.text = String(format: "%.0f%%", store.todayProgress * 100)
         progressBar.progress = store.todayProgress
     }

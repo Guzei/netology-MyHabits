@@ -74,6 +74,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }
 
     func setData(_ index: Int) {
+        print(#file, #function)
         cellIndex = index
         let habit = store.habits[index]
         habitName.text = habit.name

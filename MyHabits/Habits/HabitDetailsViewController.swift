@@ -9,7 +9,7 @@ import UIKit
 
 class HabitDetailsViewController: UIViewController, UITableViewDataSource {
 
-    var cellIndex = 0
+    var habitIndex = 0
     var countOfRows = store.dates.count - 1  // исключаем сегодняшний день
 
     private lazy var habitsList: UITableView = {
@@ -23,20 +23,32 @@ class HabitDetailsViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         print(#file, #function)
         super.viewDidLoad()
-        view.backgroundColor = AppColors.lightGray
-        navigationItem.title = store.habits[cellIndex].name
+        view.backgroundColor = .systemGray5
+        navigationItem.title = store.habits[habitIndex].name
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .done, target: self, action: #selector(editHabit))
 
         addSubviews()
         setConstraints()
     }
 
-    func addSubviews() {
+    override func viewWillAppear(_ animated: Bool) {
         print(#file, #function)
+        navigationItem.title = store.habits[habitIndex].name
+        print(store.habits[habitIndex].name)
+    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        print(#file, #function)
+////        navigationItem.title = store.habits[habitIndex].name
+//        print(store.habits[habitIndex].name)
+//    }
+
+
+    func addSubviews() {
         view.addSubview(habitsList)
     }
 
     func setConstraints() {
-        print(#file, #function)
         NSLayoutConstraint.activate([
 
             habitsList.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -46,13 +58,22 @@ class HabitDetailsViewController: UIViewController, UITableViewDataSource {
 
         ])
     }
+    @objc func editHabit() {
+//        print(#file, #function)
+        let vc = HabitViewController()
+        vc.habitIndex = habitIndex
+        let nc = UINavigationController(rootViewController: vc)
+        nc.modalPresentationStyle = .fullScreen
+        nc.modalTransitionStyle = .flipHorizontal
+        navigationController?.present(nc, animated: true, completion: nil)
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         countOfRows
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath ) -> UITableViewCell {
-        print(#file, #function, indexPath, countOfRows)
+//        print(#file, #function, indexPath, countOfRows)
 
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier.0, for: indexPath)
         var content = cell.defaultContentConfiguration()

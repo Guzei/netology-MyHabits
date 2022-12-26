@@ -38,14 +38,6 @@ enum AppColors {
     static let blue2     = UIColor(red:  98/255, green:  54/255, blue:       1, alpha: 1)
 }
 
-//enum BackgroundColors {
-//    static let mainView: UIColor = AppColors.lightGray // .systemYellow //.systemGray5
-//    static let collection: UIColor = .systemGray5
-//    static let tabBar: UIColor = .systemGray5
-//    static let table: UIColor = .white //  .systemCyan
-//    static let cell: UIColor = .white // .systemRed
-//}
-
 let infoLabel = "Привычка за 21 день"
 
 let infoText = """
