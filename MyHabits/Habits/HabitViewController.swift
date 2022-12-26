@@ -74,7 +74,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }(UIDatePicker())
 
     override func viewDidLoad() {
-        print(#file, #function)
+//        print(#file, #function)
         super.viewDidLoad()
 
         view.backgroundColor = .systemGray6
@@ -85,7 +85,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(save))
 
-        /// запоминаем редактируемые компоненты
+        /// запоминаем редактируемые компоненты, чтобы вернуть как было при отмене
         if habitIndex != nil {
             tempName = store.habits[habitIndex!].name
             tempColor = store.habits[habitIndex!].color
@@ -93,6 +93,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             habit = store.habits[habitIndex!]
         }
 
+        /// заполняем поля данными
         habitNameText.text = habit.name
         colorButton.tintColor = habit.color
         time.text = habit.timeString
@@ -144,12 +145,12 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     @objc private func setName(_ textField: UITextField) {
-        print(#file, #function)
+//        print(#file, #function)
         habit.name = textField.text ?? ""
     }
 
     @objc func setColor() {
-        print(#file, #function)
+//        print(#file, #function)
         let picker = UIColorPickerViewController()
         picker.delegate = self
         picker.modalPresentationStyle = .fullScreen
@@ -158,20 +159,20 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-        print(#file, #function)
+//        print(#file, #function)
         habit.color = color
         colorButton.tintColor = habit.color
     }
 
     @objc func setDate(_ datePiker: UIDatePicker){
-        print(#file, #function)
+//        print(#file, #function)
         habit.date = datePiker.date
         tempDate = datePiker.date
         time.text = habit.timeString
     }
 
     @objc func save() {
-        print(#file, #function)
+//        print(#file, #function)
         if habit.name != "" {
             if habitIndex == nil {
                 // TODO: добавить защиту от дублей, диагностику ошибок...
@@ -184,7 +185,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     @objc private func cancel() {
-        print(#file, #function)
+//        print(#file, #function)
         habit.name = tempName
         habit.color = tempColor
         habit.date = tempDate

@@ -74,7 +74,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }
 
     func setData(_ index: Int) {
-        print(#file, #function)
+        print(#file, #function, index)
         cellIndex = index
         let habit = store.habits[index]
         habitName.text = habit.name
@@ -82,15 +82,19 @@ class HabitCollectionViewCell: UICollectionViewCell {
         counter.text = String(habit.trackDates.count)
         checkButton.tintColor = habit.color
         checkButton.setImage(checkImg[habit.isAlreadyTakenToday], for: .normal)
+        /// странно работает. checkButton бывает активна даже при false и не заходе в условие.
+//        print(habit.isAlreadyTakenToday)
         if habit.isAlreadyTakenToday == false {
             checkButton.addTarget(self, action: #selector(checkHabit), for: .touchUpInside)
         }
     }
 
     @objc func checkHabit() {
-        print(#file, #function)
-        store.track(store.habits[cellIndex])
-        (superview as? UICollectionView)?.reloadItems(at: [IndexPath(row:         0, section: 0),
-                                                           IndexPath(row: cellIndex, section: 1) ])
+        print(#file, #function, cellIndex)
+        if store.habits[cellIndex].isAlreadyTakenToday == false {
+            store.track(store.habits[cellIndex])
+            (superview as? UICollectionView)?.reloadItems(at: [IndexPath(row:         0, section: 0),
+                                                               IndexPath(row: cellIndex, section: 1) ])
+        }
     }
 }

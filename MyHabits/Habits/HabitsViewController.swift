@@ -9,8 +9,6 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
-    var countHabits = 0
-
     private lazy var title3: UILabel = {
         $0.font = Fonts.title3
         $0.text = "Сегодня"
@@ -44,13 +42,10 @@ class HabitsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        print(#file, #function)
-//        print(countHabits, store.habits.count)
-        if countHabits != store.habits.count, countHabits > 0 {
-            print("reload collection")
-            habitsCollectionView.reloadData()
-        }
-        countHabits = store.habits.count
+        print(#file, #function)
+        // TODO: Нужен флаг новое/исправленное, если есть желание избежать лишних обновления. Или в игнор.
+        print("reload collection")
+        habitsCollectionView.reloadData()
     }
 
     func addSubviews() {
