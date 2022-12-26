@@ -9,9 +9,8 @@ import UIKit
 
 class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate {
 
-//    var habit = Habit(name: "", date: Date(), color: .systemRed) // указатель на общую облать памяти?
-
     var habitIndex: Int?
+    var habit = Habit(name: "", date: Date(), color: .systemRed)
     var tempName = ""
     var tempColor: UIColor = .systemRed
     var tempDate = Date()
@@ -86,17 +85,17 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(save))
 
+        /// запоминаем редактируемые компоненты
         if habitIndex != nil {
-//            habit = store.habits[habitIndex!]
             tempName = store.habits[habitIndex!].name
             tempColor = store.habits[habitIndex!].color
             tempDate = store.habits[habitIndex!].date
+            habit = store.habits[habitIndex!]
         }
 
-
-        habitNameText.text = tempName // habit.name
-        colorButton.tintColor = tempColor // habit.color
-//        time.text = tempDate // habit.timeString
+        habitNameText.text = habit.name
+        colorButton.tintColor = habit.color
+        time.text = habit.timeString
 
         addSubviews()
         setConstraints()
@@ -146,8 +145,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
     @objc private func setName(_ textField: UITextField) {
         print(#file, #function)
-//        habit.name = textField.text ?? ""
-        tempName = textField.text ?? ""
+        habit.name = textField.text ?? ""
     }
 
     @objc func setColor() {
@@ -161,29 +159,25 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
         print(#file, #function)
-//        habit.color = color
-        tempColor = color
-        colorButton.tintColor = tempColor // habit.color
+        habit.color = color
+        colorButton.tintColor = habit.color
     }
 
     @objc func setDate(_ datePiker: UIDatePicker){
-//        print(#file, #function)
-//        habit.date = datePiker.date
+        print(#file, #function)
+        habit.date = datePiker.date
         tempDate = datePiker.date
-        time.text = "" // habit.timeString
+        time.text = habit.timeString
     }
 
     @objc func save() {
         print(#file, #function)
-        if tempName != "" {
-//        if habit.name != "" {
+        if habit.name != "" {
             if habitIndex == nil {
-                // TODO: добавить защиту от дублей
-//                store.habits.append(habit)
+                // TODO: добавить защиту от дублей, диагностику ошибок...
+                store.habits.append(habit)
             } else {
-                store.habits[habitIndex!].name = tempName
                 store.save()
-//                store.habits[habitIndex!] = habit
             }
         }
         dismiss(animated: true)
@@ -191,8 +185,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
     @objc private func cancel() {
         print(#file, #function)
-//        print(habit.name)
-        print(tempName)
+        habit.name = tempName
+        habit.color = tempColor
+        habit.date = tempDate
+        print(habit.name)
         dismiss(animated: true)
     }
 }
