@@ -9,6 +9,8 @@ import UIKit
 
 class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate {
 
+    var popToRootDelegate: PopToRoot?
+
     var habitIndex: Int?
     var habit = Habit(name: "", date: Date(), color: .systemRed)
     var tempName = ""
@@ -73,15 +75,25 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         return $0
     }(UIDatePicker())
 
+    private lazy var delButton: UIButton = {
+        $0.setTitle("Удалить привычку", for: .normal)
+        $0.backgroundColor = .systemGray5
+        $0.setTitleColor(.systemRed, for: .normal)
+        $0.titleLabel?.font = Fonts.body
+        $0.isHidden = true
+        $0.addTarget(self, action: #selector(delHabit), for: .touchUpInside)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIButton(type: .system))
+
     override func viewDidLoad() {
-//        print(#file, #function)
+        print(#fileID, #function, "habitIndex:", habitIndex ?? "nil")
         super.viewDidLoad()
 
         view.backgroundColor = .systemGray6
         title = habitIndex == nil ? "Создать" : "Править"
 
         navigationController?.navigationBar.tintColor = AppColors.purple
-
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(save))
 
@@ -91,6 +103,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             tempColor = store.habits[habitIndex!].color
             tempDate = store.habits[habitIndex!].date
             habit = store.habits[habitIndex!]
+            delButton.isHidden = false
         }
 
         /// заполняем поля данными
@@ -112,6 +125,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         view.addSubview(dateSubLabel)
         view.addSubview(time)
         view.addSubview(datePiker)
+        view.addSubview(delButton)
     }
 
     func setConstraints() {
@@ -141,16 +155,18 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             datePiker.topAnchor.constraint(equalTo: dateSubLabel.bottomAnchor, constant: 32),
             datePiker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
+            delButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            delButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            delButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+
         ])
     }
 
     @objc private func setName(_ textField: UITextField) {
-//        print(#file, #function)
         habit.name = textField.text ?? ""
     }
 
     @objc func setColor() {
-//        print(#file, #function)
         let picker = UIColorPickerViewController()
         picker.delegate = self
         picker.modalPresentationStyle = .fullScreen
@@ -159,20 +175,17 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
-//        print(#file, #function)
         habit.color = color
         colorButton.tintColor = habit.color
     }
 
     @objc func setDate(_ datePiker: UIDatePicker){
-//        print(#file, #function)
         habit.date = datePiker.date
         tempDate = datePiker.date
         time.text = habit.timeString
     }
 
-    @objc func save() {
-//        print(#file, #function)
+    @objc private func save() {
         if habit.name != "" {
             if habitIndex == nil {
                 // TODO: добавить защиту от дублей, диагностику ошибок...
@@ -185,11 +198,24 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     @objc private func cancel() {
-//        print(#file, #function)
         habit.name = tempName
         habit.color = tempColor
         habit.date = tempDate
-        print(habit.name)
         dismiss(animated: true)
+    }
+
+    @objc private func delHabit() {
+
+        let alert = UIAlertController(title: "Удалить привычку",  message: "Вы хотите удалить привычку \"\(habit.name)\"?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive   ) { _ in
+            store.habits.remove(at: self.habitIndex!)
+            self.popToRootDelegate?.popToRoot()
+            self.dismiss(animated: true)
+        })
+
+        present(alert, animated: true)
     }
 }

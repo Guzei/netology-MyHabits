@@ -73,10 +73,11 @@
 				4E73804029507A9900070BE4 /* AppDelegate.swift */,
 				4E73804229507A9900070BE4 /* SceneDelegate.swift */,
 				4E8E89CA295244C100E43705 /* TabBarController.swift */,
-				4E73805429507CF300070BE4 /* Data.swift */,
-				4E8E89CD2952476E00E43705 /* InfoViewController.swift */,
 				4E8E89CC2952475300E43705 /* Habits */,
 				4E73804929507A9A00070BE4 /* Assets.xcassets */,
+				4E8E89C82952438E00E43705 /* HabitsStore.swift */,
+				4E8E89CD2952476E00E43705 /* InfoViewController.swift */,
+				4E73805429507CF300070BE4 /* Data.swift */,
 				4E73804B29507A9A00070BE4 /* LaunchScreen.storyboard */,
 				4E73804E29507A9A00070BE4 /* Info.plist */,
 			);
@@ -86,12 +87,11 @@
 		4E8E89CC2952475300E43705 /* Habits */ = {
 			isa = PBXGroup;
 			children = (
-				4E8E89C82952438E00E43705 /* HabitsStore.swift */,
+				4E73804429507A9900070BE4 /* HabitsViewController.swift */,
+				4E5F510429586CE5001632F5 /* HabitDetailsViewController.swift */,
 				4E5F50F329535C76001632F5 /* HabitViewController.swift */,
 				4E5F50F5295635F8001632F5 /* ProgressCollectionViewCell.swift */,
 				4E5F510229572E3B001632F5 /* HabitCollectionViewCell.swift */,
-				4E73804429507A9900070BE4 /* HabitsViewController.swift */,
-				4E5F510429586CE5001632F5 /* HabitDetailsViewController.swift */,
 			);
 			path = Habits;
 			sourceTree = "<group>";

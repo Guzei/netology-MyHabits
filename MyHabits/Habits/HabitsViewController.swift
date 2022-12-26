@@ -29,12 +29,10 @@ class HabitsViewController: UIViewController {
     }()
 
     override func viewDidLoad() {
-//        print(#file, #function)
         super.viewDidLoad()
         habitsCollectionView.reloadData()
         view.backgroundColor = AppColors.lightGray
         navigationController?.navigationBar.tintColor = AppColors.purple
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit))
 
         addSubviews()
@@ -42,20 +40,16 @@ class HabitsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(#file, #function)
         // TODO: Нужен флаг новое/исправленное, если есть желание избежать лишних обновления. Или в игнор.
-        print("reload collection")
         habitsCollectionView.reloadData()
     }
 
     func addSubviews() {
-//        print(#file, #function)
         view.addSubview(title3)
         view.addSubview(habitsCollectionView)
     }
 
     func setConstraints() {
-//        print(#file, #function)
         NSLayoutConstraint.activate([
 
             title3.heightAnchor.constraint(equalToConstant: Fonts.title3.pointSize * 2),
@@ -71,7 +65,6 @@ class HabitsViewController: UIViewController {
     }
 
     @objc func addHabit() {
-//        print(#file, #function)
         let nc = UINavigationController(rootViewController: HabitViewController())
         nc.modalPresentationStyle = .fullScreen
         nc.modalTransitionStyle = .flipHorizontal
@@ -82,29 +75,23 @@ class HabitsViewController: UIViewController {
 extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        print(#file, #function)
-        return 2
+        2
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print(#file, #function)
-        return section == 0 ? 1 : store.habits.count
+        section == 0 ? 1 : store.habits.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        print(#file, #function)
-        // habitsProgress.bounds.width vs. UIScreen.main.bounds.width ?
-        return CGSize(width: habitsCollectionView.bounds.width - pagePadding * 2,
-                      height: indexPath.section == 0 ? pagePadding * 4 + 8 : 130)
+        CGSize(width: habitsCollectionView.bounds.width - pagePadding * 2,
+               height: indexPath.section == 0 ? pagePadding * 4 + 8 : 130)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        print(#file, #function)
-        return UIEdgeInsets(top: pagePadding, left: pagePadding, bottom: 0, right: pagePadding)
+        UIEdgeInsets(top: pagePadding, left: pagePadding, bottom: 0, right: pagePadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        print(#file, #function)
         if indexPath.section == 0 {
             let cell = habitsCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier.0, for: indexPath) as! ProgressCollectionViewCell
             cell.setData()
@@ -118,10 +105,9 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
-            let viewController = HabitDetailsViewController()
-            viewController.habitIndex = indexPath.row
-            navigationController?.pushViewController(viewController, animated: true)
+            let vc = HabitDetailsViewController()
+            vc.habitIndex = indexPath.row
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
-

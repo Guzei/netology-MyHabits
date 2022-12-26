@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol PopToRoot {
+    func popToRoot()
+}
+
+let detailsFromDay = 1          // 0 - показывать делали с сегодняшнего дня (галочки видны сразу), 1 - с завтрашнего, ...
+
 let store = HabitsStore.shared
 
 let pagePadding = 16.0
